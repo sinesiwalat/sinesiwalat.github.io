@@ -57,21 +57,6 @@
         <button type="submit">Submit</button>
     </form>
     <div id="comments"></div>
-     <script>
-        document.getElementById('commentForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const commentInput = document.getElementById('commentInput');
-    const commentText = commentInput.value;
-    // Create a new div for the comment
-    const commentDiv = document.createElement('div');
-    commentDiv.className = 'comment';
-    commentDiv.textContent = commentText;
-    // Append the comment to the comments section
-    document.getElementById('comments').appendChild(commentDiv);
-    // Clear the textarea
-    commentInput.value = '';
-});
-    </script> 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
     const commentForm = document.getElementById('commentForm');
@@ -97,35 +82,24 @@
     // Handle form submission
     commentForm.addEventListener('submit', function(event) {
         event.preventDefault();
-        const commentText = commentInput.value;
+        const commentText = commentInput.value.trim();
 
-        // Save the comment to local storage
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        comments.push(commentText);
-        localStorage.setItem('comments', JSON.stringify(comments));
-        console.log('Saved comments:', comments);
+        if (commentText) {
+            // Save the comment to local storage
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.push(commentText);
+            localStorage.setItem('comments', JSON.stringify(comments));
 
-        // Display the new comment
-        displayComment(commentText);
-        console.log('Displayed comment:', comment);
-        commentInput.value = ''; // Clear the input
+            // Display the new comment
+            displayComment(commentText);
+            commentInput.value = ''; // Clear the input
+        }
     });
 
     // Load comments when the page loads
     loadComments();
-    console.log('Loaded comments:', comments);
 });
-
     </script>
     <script src="script.js"></script>
-    <div class="container">
-    USER1: I hope Nathan is okay...
-    </div>
-    <div class="container">
-    Natnat: Is PISAT Prod treating him well?
-    </div>
-    <div class="container'>
-    User21: I hope he is not hurting himself :((
-    </div>
 </body>
 </html>
