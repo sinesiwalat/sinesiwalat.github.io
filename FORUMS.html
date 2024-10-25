@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment Section</title>
+    <title>FORUM</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -32,6 +32,25 @@
     <form id="commentForm">
         <textarea id="commentInput" placeholder="Leave a comment..." required></textarea>
         <button type="submit">Submit</button>
+    <script>
+        document.getElementById('commentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const commentInput = document.getElementById('commentInput');
+    const commentText = commentInput.value;
+
+    // Create a new div for the comment
+    const commentDiv = document.createElement('div');
+    commentDiv.className = 'comment';
+    commentDiv.textContent = commentText;
+
+    // Append the comment to the comments section
+    document.getElementById('comments').appendChild(commentDiv);
+
+    // Clear the textarea
+    commentInput.value = '';
+});
+    </script> 
     </form>
     <div id="comments"></div>
     <script src="script.js"></script>
