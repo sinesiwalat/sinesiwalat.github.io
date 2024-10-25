@@ -30,6 +30,27 @@
     border-radius: 5px;
 }
   </style>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    padding: 20px;
+}
+#commentForm {
+    margin-bottom: 20px;
+}
+#commentInput {
+    width: 100%;
+    height: 100px;
+}
+.comment {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+</style>
     <h1>FORUM</h1>
     <form id="commentForm">
         <textarea id="commentInput" placeholder="Leave a comment..." required></textarea>
@@ -39,18 +60,14 @@
      <script>
         document.getElementById('commentForm').addEventListener('submit', function(event) {
     event.preventDefault();
-
     const commentInput = document.getElementById('commentInput');
     const commentText = commentInput.value;
-
     // Create a new div for the comment
     const commentDiv = document.createElement('div');
     commentDiv.className = 'comment';
     commentDiv.textContent = commentText;
-
     // Append the comment to the comments section
     document.getElementById('comments').appendChild(commentDiv);
-
     // Clear the textarea
     commentInput.value = '';
 });
@@ -60,7 +77,6 @@
     const commentForm = document.getElementById('commentForm');
     const commentInput = document.getElementById('commentInput');
     const commentsDiv = document.getElementById('comments');
-
     // Load comments from local storage
     function loadComments() {
         const comments = JSON.parse(localStorage.getItem('comments')) || [];
@@ -68,7 +84,6 @@
             displayComment(comment);
         });
     }
-
     // Display a single comment
     function displayComment(comment) {
         const commentDiv = document.createElement('div');
@@ -76,22 +91,18 @@
         commentDiv.textContent = comment;
         commentsDiv.appendChild(commentDiv);
     }
-
     // Handle form submission
     commentForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const commentText = commentInput.value;
-
         // Save the comment to local storage
         const comments = JSON.parse(localStorage.getItem('comments')) || [];
         comments.push(commentText);
         localStorage.setItem('comments', JSON.stringify(comments));
-
         // Display the new comment
         displayComment(commentText);
         commentInput.value = ''; // Clear the input
     });
-
     // Load comments when the page loads
     loadComments();
 });
