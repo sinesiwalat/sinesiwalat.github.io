@@ -103,14 +103,17 @@
         const comments = JSON.parse(localStorage.getItem('comments')) || [];
         comments.push(commentText);
         localStorage.setItem('comments', JSON.stringify(comments));
+        console.log('Saved comments:', comments);
 
         // Display the new comment
         displayComment(commentText);
+        console.log('Displayed comment:', comment);
         commentInput.value = ''; // Clear the input
     });
 
     // Load comments when the page loads
     loadComments();
+    console.log('Loaded comments:', comments);
 });
 
     </script>
