@@ -77,6 +77,7 @@
     const commentForm = document.getElementById('commentForm');
     const commentInput = document.getElementById('commentInput');
     const commentsDiv = document.getElementById('comments');
+
     // Load comments from local storage
     function loadComments() {
         const comments = JSON.parse(localStorage.getItem('comments')) || [];
@@ -84,6 +85,7 @@
             displayComment(comment);
         });
     }
+
     // Display a single comment
     function displayComment(comment) {
         const commentDiv = document.createElement('div');
@@ -91,21 +93,26 @@
         commentDiv.textContent = comment;
         commentsDiv.appendChild(commentDiv);
     }
+
     // Handle form submission
     commentForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const commentText = commentInput.value;
+
         // Save the comment to local storage
         const comments = JSON.parse(localStorage.getItem('comments')) || [];
         comments.push(commentText);
         localStorage.setItem('comments', JSON.stringify(comments));
+
         // Display the new comment
         displayComment(commentText);
         commentInput.value = ''; // Clear the input
     });
+
     // Load comments when the page loads
     loadComments();
 });
+
     </script>
     <script src="script.js"></script>
     <div class="container">
