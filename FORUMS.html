@@ -30,11 +30,13 @@
     border-radius: 5px;
 }
   </style>
-    <h1>Comment Section</h1>
+    <h1>FORUM</h1>
     <form id="commentForm">
         <textarea id="commentInput" placeholder="Leave a comment..." required></textarea>
         <button type="submit">Submit</button>
-    <script>
+    </form>
+    <div id="comments"></div>
+     <script>
         document.getElementById('commentForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -53,8 +55,6 @@
     commentInput.value = '';
 });
     </script> 
-    </form>
-    <div id="comments"></div>
     <script src="script.js"></script>
 </body>
 </html>
