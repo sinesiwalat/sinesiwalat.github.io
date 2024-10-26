@@ -4,113 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FORUM</title>
-      <script type="module">
+    <style>
+        body {
+            font-family: "Lucida Console", "Courier New", monospace;
+            background-color: #000000;
+            padding: 20px;
+            color: #880808;
+        }
+
+        #commentForm {
+            margin-bottom: 20px;
+        }
+
+        #commentInput {
+            width: 100%;
+            height: 100px;
+        }
+
+        #comments {
+            max-height: 300px; /* Set a maximum height for the comments section */
+            overflow-y: auto; /* Enable vertical scrolling */
+            border: 1px solid #ccc; /* Optional: add a border */
+            padding: 10px; /* Optional: add padding */
+            background-color: #000; /* Optional: set background color */
+            border-radius: 5px; /* Optional: rounded corners */
+        }
+
+        .comment {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
-        apiKey: "AIzaSyAuHDwv4l97QAtE6KGty2A8Ks911tdwn2g",
-     authDomain: "sinesiwalat.firebaseapp.com",
-     projectId: "sinesiwalat",
-     storageBucket: "sinesiwalat.appspot.com",
-     messagingSenderId: "916899604456",
-     appId: "1:916899604456:web:c59b206f2a6ee50d60665d",
-     measurementId: "G-KKR01BCFQ2"
+            apiKey: "AIzaSyAuHDwv4l97QAtE6KGty2A8Ks911tdwn2g",
+            authDomain: "sinesiwalat.firebaseapp.com",
+            projectId: "sinesiwalat",
+            storageBucket: "sinesiwalat.appspot.com",
+            messagingSenderId: "916899604456",
+            appId: "1:916899604456:web:c59b206f2a6ee50d60665d",
+            measurementId: "G-KKR01BCFQ2"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app); // Ensure db is defined here
 
-        // Example function using db
-        async function addComment(text) {
-            try {
-                await db.collection("comments").add({ text: text });
-                console.log("Comment added!");
-            } catch (error) {
-                console.error("Error adding comment: ", error);
-            }
-        }
-
-        // Call the function (for demonstration)
-        addComment("Hello, World!");
-    </script>
-</head>
-<body>
-<body style="background-color:#000000;">
-  <style>
-    body {
-    font-family: "Lucida Console", "Courier New", monospace;
-    background-color: #000000;
-    padding: 20px;
-    color: #880808;
-}
-#commentForm {
-    margin-bottom: 20px;
-}
-#commentInput {
-    width: 100%;
-    height: 100px;
-}
-    #comments {
-    max-height: 300px; /* Set a maximum height for the comments section */
-    overflow-y: auto; /* Enable vertical scrolling */
-    border: 1px solid #ccc; /* Optional: add a border */
-    padding: 10px; /* Optional: add padding */
-    background-color: #000; /* Optional: set background color */
-    border-radius: 5px; /* Optional: rounded corners */
-}
-.comment {
-    background-color: #000;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-}
-  </style>
-<style>
-    body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
-    padding: 20px;
-}
-#commentForm {
-    margin-bottom: 20px;
-}
-#commentInput {
-    width: 100%;
-    height: 100px;
-}
-    #comments {
-    max-height: 300px; /* Set a maximum height for the comments section */
-    overflow-y: auto; /* Enable vertical scrolling */
-    border: 1px solid #ccc; /* Optional: add a border */
-    padding: 10px; /* Optional: add padding */
-    background-color: #000; /* Optional: set background color */
-    border-radius: 5px; /* Optional: rounded corners */
-}
-.comment {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-}
-</style>
-    <h1>FORUM</h1>
-    <form id="commentForm">
-        <textarea id="commentInput" placeholder="Leave a comment..." required></textarea>
-        <button type="submit">Submit</button>
-    </form>
-    <div id="comments"></div>
-    <script>
-        const commentForm = document.getElementById('commentForm');
-        const commentInput = document.getElementById('commentInput');
-        const commentsDiv = document.getElementById('comments');
-
         // Load comments from Firestore
         function loadComments() {
             db.collection("comments").onSnapshot((snapshot) => {
+                const commentsDiv = document.getElementById('comments');
                 commentsDiv.innerHTML = ''; // Clear existing comments
                 snapshot.forEach((doc) => {
                     displayComment(doc.data().text);
@@ -120,33 +69,43 @@
 
         // Display a single comment
         function displayComment(comment) {
+            const commentsDiv = document.getElementById('comments');
             const commentDiv = document.createElement('div');
             commentDiv.className = 'comment';
             commentDiv.textContent = comment;
             commentsDiv.appendChild(commentDiv);
         }
 
-        // Handle form submission
-        commentForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const commentText = commentInput.value.trim();
+        document.addEventListener('DOMContentLoaded', () => {
+            const commentForm = document.getElementById('commentForm');
+            const commentInput = document.getElementById('commentInput');
 
-            if (commentText) {
-                // Save the comment to Firestore
-                await db.collection("comments").add({
-                    text: commentText
-                });
+            // Handle form submission
+            commentForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const commentText = commentInput.value.trim();
 
-                // Clear the input
-                commentInput.value = '';
-            }
+                if (commentText) {
+                    // Save the comment to Firestore
+                    await db.collection("comments").add({ text: commentText });
+
+                    // Clear the input
+                    commentInput.value = '';
+                }
+            });
+
+            // Load comments when the page loads
+            loadComments();
         });
-
-        // Load comments when the page loads
-        loadComments();
-    
     </script>
-    <script src="script.js"></script>
-     <a href="index.html">Back to Home Page</a>
+</head>
+<body>
+    <h1>FORUM</h1>
+    <form id="commentForm">
+        <textarea id="commentInput" placeholder="Leave a comment..." required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="comments"></div>
+    <a href="index.html">Back to Home Page</a>
 </body>
 </html>
