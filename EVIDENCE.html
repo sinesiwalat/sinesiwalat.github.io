@@ -4,28 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVIDENCES</title>
-</head>
-<body>
-     <body style="background-color:#000000;">
-     <style>
-            h1 {
-            font-family: "Lucida Console", "Courier New", monospace;
-            margin: 0;
-            padding: 0;
-            background-color: #00000;
-            color: #880808;
+    <style>
+        body {
+            background-color: #000000;
+            color: #fff;
             text-align: center;
-            font-size: 20px; 
+            font-family: "Lucida Console", "Courier New", monospace;
+        }
+        h1 {
+            font-size: 24px;
+            color: #880808;
             letter-spacing: 3px;
             line-height: 1.6;
-            } 
-        </style>
+        }
+        .video-container {
+            display: flex;
+            justify-content: center; /* Align videos horizontally */
+            gap: 20px; /* Space between the videos */
+            flex-wrap: wrap; /* Allow wrapping of videos to new line if the screen is too narrow */
+        }
+        video {
+            width: 300px; /* Set a fixed width for each video */
+            height: auto;
+        }
+        /* Responsive Design: Stack videos on smaller screens */
+        @media (max-width: 768px) {
+            .video-container {
+                flex-direction: column; /* Stack videos vertically on small screens */
+            }
+            video {
+                width: 100%; /* Videos take full width on small screens */
+                margin-bottom: 20px; /* Space between stacked videos */
+            }
+        }
+    </style>
+</head>
+<body>
     <h1>EVIDENCES</h1>
-          <video width="600" controls>
-        <source src="1.avi" type="video/avi">
-        <source src="2.avi" type="video/avi">
-        <source src="3.avi" type="video/avi">
-    </video>
+    <div class="video-container">
+        <video controls>
+            <source src="1.mp4" type="video/mp4">
+            <source src="2.mp4" type="video/mp4">
+            <source src="3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <video controls>
+            <source src="2.mp4" type="video/mp4">
+            <source src="3.mp4" type="video/mp4">
+            <source src="1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <video controls>
+            <source src="3.mp4" type="video/mp4">
+            <source src="1.mp4" type="video/mp4">
+            <source src="2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <br>
     <a href="index.html">Back to Home Page</a>
 </body>
 </html>
